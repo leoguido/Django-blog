@@ -1,0 +1,18 @@
+{% extends 'post/base.html' %}
+
+{% block content %}
+{%for posts in post%} 
+    <div class="post">   
+        <h2><a href="{% url 'post_details' pk=posts.pk %}">{{ posts.title }}</a></h2>
+        <div class="date">
+            <p>created at: {{ posts.created_date }}</p>
+        </div>
+        <p>By: {{posts.author}}</p>
+        <p>{{posts.text|linebreaksbr}}</p>
+        <a class="btn btn-default" href="{% url 'post_publish' pk=posts.pk %}">Publish</a>
+        {% if user.is_authenticated %}
+            <a class="btn btn-default" href="{% url 'post_edit' pk=posts.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        {% endif %}
+    </div> 
+{% endfor %}
+{% endblock %}
